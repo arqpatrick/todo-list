@@ -9,7 +9,8 @@ const Main = {
   cacheSelectors: function() { //cacheSelectors não é nome reservado || Será responsável por selecionar os elementos do HTML e armazenar eles em variável
     this.$checkButtons = document.querySelectorAll('.check') //o this. está colocando a variável no Main, disponível para todas as funções || se utilizasse let ao invés de this, a variável ficaria presa dentro desta função
     this.$inputTask = document.querySelector('#inputTask') // seleciona o que for escrito no input inputTask
-    this.$list = document.querySelector('#list') //sleciona o ul list
+    this.$list = document.querySelector('#list') // seleciona o ul list
+    this.$removeButtons = document.querySelectorAll('.remove') // percorre todos os botões de remove
   },
 
   bindEvents: function() { // bindEvents não é um nome reservado || responsável por adicionar eventos, onclick por exemplo
@@ -21,6 +22,9 @@ const Main = {
 
     this.$inputTask.onkeypress = self.Events.inputTask_keypress.bind(self) //bind(this) ou bind(self) é para utilizar o this do Main. Isso sempre ocorre quando estamos dentro de um evento
 
+    this.$removeButtons.forEach(function(button){
+      button.onclick = self.Events.removeButton_click
+    })
   },
 
 
@@ -62,7 +66,25 @@ const Main = {
         `
         
         e.target.value = '' // para "limpar" o input depois de dar entrada
+
+        //essa função fez com que o HTML perdesse os inputs e referencias
+        //para solucionar isso, devemos executar novamente o cacheSelector e o bindEvents
+        //para eles adicionarem as referencias novamente
+
+        this.cacheSelectors()
+        this.bindEvents()
+
       }
+    },
+
+    removeButton_click: function(e) {
+      let li = e.target.parentElement
+
+      li.classList.add('remove')
+
+      setTimeout(function(){
+        li.classList.add('hidden')
+      },300)
     }
   }
 
