@@ -8,7 +8,8 @@ const Main = {
 
   cacheSelectors: function() { //cacheSelectors não é nome reservado || Será responsável por selecionar os elementos do HTML e armazenar eles em variável
     this.$checkButtons = document.querySelectorAll('.check') //o this. está colocando a variável no Main, disponível para todas as funções || se utilizasse let ao invés de this, a variável ficaria presa dentro desta função
-
+    this.$inputTask = document.querySelector('#inputTask') // seleciona o que for escrito no input inputTask
+    this.$list = document.querySelector('#list') //sleciona o ul list
   },
 
   bindEvents: function() { // bindEvents não é um nome reservado || responsável por adicionar eventos, onclick por exemplo
@@ -17,6 +18,8 @@ const Main = {
     this.$checkButtons.forEach(function(button){ // percorre todos os checkButtons e executa a função button para cada um deles
       button.onclick = self.Events.checkButton_click //self é this que é Main, Events, checkButton_click vem de Events
     })
+
+    this.$inputTask.onkeypress = self.Events.inputTask_keypress.bind(self) //bind(this) ou bind(self) é para utilizar o this do Main. Isso sempre ocorre quando estamos dentro de um evento
 
   },
 
@@ -41,6 +44,25 @@ const Main = {
       }
       li.classList.remove('done') // senão remove concluido
       // ---- assim é a forma de acordo com boas práticas, pois elimina o else, e busca primeira a negativa !
+    },
+
+    inputTask_keypress: function(e) {
+      const key = e.key
+      const value = e.target.value
+
+      if (key === 'Enter') {
+        this.$list.innerHTML += `
+          <li>
+            <div class="check"></div>
+            <label for="" class="task">
+              ${value}
+            </label>
+            <button class="remove"></button>
+          </li>
+        `
+        
+        e.target.value = '' // para "limpar" o input depois de dar entrada
+      }
     }
   }
 
