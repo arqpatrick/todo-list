@@ -1,16 +1,16 @@
 
 const Main = {
 
-  tasks: [], //iniciar o tasks
+  tasks: [], //* iniciar o tasks
 
-  init: function() { // init não é nome reservado || responsável por inicar os seletores
-    this.cacheSelectors() // this. é para referenciar que o cacheSelectors é do pai, no caso o Main
-    this.bindEvents() // adiciona os eventos
-    this.getStoraged() // para obter tudo que está armazenado já quando carregar a página
-    this.buildTasks() // método que lista as tasks existentes no local storage
+  init: function() { //* init não é nome reservado || responsável por inicar os seletores
+    this.cacheSelectors() //* this. é para referenciar que o cacheSelectors é do pai, no caso o Main
+    this.bindEvents() //* adiciona os eventos
+    this.getStoraged() //* para obter tudo que está armazenado já quando carregar a página
+    this.buildTasks() //* método que lista as tasks existentes no local storage
   },
 
-  cacheSelectors: function() { //cacheSelectors não é nome reservado || Será responsável por selecionar os elementos do HTML e armazenar eles em variável
+  cacheSelectors: function() { // cacheSelectors não é nome reservado || Será responsável por selecionar os elementos do HTML e armazenar eles em variável
     this.$checkButtons = document.querySelectorAll('.check') //o this. está colocando a variável no Main, disponível para todas as funções || se utilizasse let ao invés de this, a variável ficaria presa dentro desta função
     this.$inputTask = document.querySelector('#inputTask') // seleciona o que for escrito no input inputTask
     this.$list = document.querySelector('#list') // seleciona o ul list
